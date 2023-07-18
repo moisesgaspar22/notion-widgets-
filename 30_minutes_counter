@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timer Countdown</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+
+    #timer {
+      font-size: 48px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Timer Countdown</h1>
+    <div id="timer" class="display-1">30:00</div>
+    <div id="buttons">
+      <button class="btn btn-primary" onclick="startTimer()">Start</button>
+      <button class="btn btn-secondary" onclick="stopTimer()">Stop</button>
+      <button class="btn btn-danger" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    var timer;
+    var minutes = 30;
+    var seconds = 0;
+
+    function startTimer() {
+      timer = setInterval(updateTimer, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      minutes = 30;
+      seconds = 0;
+      updateDisplay();
+    }
+
+    function updateTimer() {
+      if (seconds > 0) {
+        seconds--;
+      } else if (minutes > 0) {
+        minutes--;
+        seconds = 59;
+      } else {
+        clearInterval(timer);
+        return;
+      }
+
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      var timerDisplay = document.getElementById("timer");
+      timerDisplay.innerHTML = padNumber(minutes) + ":" + padNumber(seconds);
+    }
+
+    function padNumber(number) {
+      return (number < 10 ? "0" : "") + number;
+    }
+  </script>
+</body>
+</html>
